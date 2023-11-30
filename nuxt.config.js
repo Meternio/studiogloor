@@ -1,15 +1,32 @@
 export default defineNuxtConfig({
-  css: ['@/assets/css/roboto.css'],
+  css: ["@/assets/css/roboto.css"],
   modules: [
     [
-      '@storyblok/nuxt',
+      "@storyblok/nuxt",
       {
-        accessToken: 'op1cRUnN0dmbu2lhnIbyJwtt',
+        accessToken: process.env.STORYBLOK_TOKEN,
         apiOptions: {
-          region: '' // Set 'US" if your space is created in US region (EU default)
-        }
+          region: "", // Set 'US" if your space is created in US region (EU default)
+        },
       },
     ],
-    '@nuxtjs/tailwindcss',
-  ]
-})
+    "@nuxtjs/tailwindcss",
+    "@nuxt/image",
+    "@unlok-co/nuxt-stripe",
+  ],
+  stripe: {
+    // Server
+    server: {
+      key: process.env.STRIPE_SERVER,
+
+      // your api options override for stripe server side
+      options: {},
+    },
+    // CLIENT
+    client: {
+      key: process.env.STRIPE_CLIENT,
+      // your api options override for stripe client side
+      options: {},
+    },
+  },
+});

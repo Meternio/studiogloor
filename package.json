@@ -6,14 +6,18 @@
     "dev-ssl": "NODE_TLS_REJECT_UNAUTHORIZED=0 nuxt dev --https --ssl-cert localhost.pem --ssl-key localhost-key.pem",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "stackblitz": "npm run dev"
+    "stackblitz": "npm run dev",
+    "proxy": "mkcert -install && mkcert localhost && local-ssl-proxy --source 3010 --target 3000 --cert localhost.pem --key localhost-key.pem",
+    "start": "mkcert localhost  && npm install && npm run dev-ssl"
   },
   "stackblitz": {
     "startCommand": "npm run stackblitz"
   },
   "devDependencies": {
+    "@nuxt/image": "^1.1.0",
     "@nuxtjs/tailwindcss": "^6.10.0",
     "@storyblok/nuxt": "^5.7.8",
+    "@unlok-co/nuxt-stripe": "^2.0.0",
     "nuxt": "^3.8.2"
   }
 }
