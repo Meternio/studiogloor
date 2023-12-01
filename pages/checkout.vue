@@ -1,7 +1,17 @@
 <script setup>
+import { useSnackbarStore } from "@/stores/snackbarStore";
+
+const snackbarStore = useSnackbarStore();
+const disabledSubmit = ref(true);
 const loader = "auto";
 const options = { mode: "shipping" };
+const appearance = {
+  theme: "stripe",
+  labels: "floating",
+  variables: { colorPrimaryText: "#262626" },
+};
 const stripe = await useClientStripe();
+let elements;
 
 async function initializeStripe() {
   // Make a request to your server to get the client secret
@@ -11,12 +21,9 @@ async function initializeStripe() {
     body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
   });
   const { clientSecret } = await response.json();
-  const elements = stripe.value.elements({ clientSecret, loader });
+  elements = stripe.value.elements({ clientSecret, loader, appearance });
 
   const linkAuthenticationElement = elements.create("linkAuthentication");
-  /*linkAuthenticationElement.on("change", (event) => {
-    console.log(event.value.email);
-  });*/
   linkAuthenticationElement.mount("#linkAuthentication");
 
   const paymentElement = elements.create("payment");
@@ -24,15 +31,39 @@ async function initializeStripe() {
 
   const addressElement = elements.create("address", options);
   addressElement.mount("#address-element");
+
+  disabledSubmit.value = false;
 }
 
-onMounted(async () => {
-  await initializeStripe();
+async function handleStripePayment(event) {
+  event.preventDefault();
+  const { error } = await stripe.value.confirmPayment({
+    elements,
+    confirmParams: {
+      return_url: "https://example.com/order/123/complete",
+    },
+  });
+
+  if (error) {
+    // Show error to your customer (for example, payment details incomplete)
+    snackbarStore.showSnackbar({text: error.message});
+  } else {
+    // Your customer will be redirected to your `return_url`. For some payment
+    // methods like iDEAL, your customer will be redirected to an intermediate
+    // site first to authorize the payment, then redirected to the `return_url`.
+  }
+}
+
+onMounted(() => {
+  initializeStripe();
 });
 </script>
 
 <template>
-  <div id="linkAuthentication"></div>
-  <div id="payment-element"></div>
-  <div id="address-element"></div>
+  <form @submit="handleStripePayment">
+    <div id="linkAuthentication"></div>
+    <div id="payment-element"></div>
+    <div id="address-element"></div>
+    <button type="submit" :disabled="disabledSubmit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Zahlungspflichtig bestellen</button>
+  </form>
 </template>

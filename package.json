@@ -19,5 +19,12 @@
     "@storyblok/nuxt": "^5.7.8",
     "@unlok-co/nuxt-stripe": "^2.0.0",
     "nuxt": "^3.8.2"
+  },
+  "overrides": {
+    "vue": "latest"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "pinia": "^2.1.7"
   }
 }

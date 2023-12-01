@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  css: ["@/assets/css/roboto.css"],
+  css: ["@/assets/css/roboto.css", "@/assets/css/global.css"],
   modules: [
     [
       "@storyblok/nuxt",
@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@nuxt/image",
     "@unlok-co/nuxt-stripe",
+    "@pinia/nuxt",
   ],
   stripe: {
     // Server
@@ -25,6 +26,7 @@ export default defineNuxtConfig({
     // CLIENT
     client: {
       key: process.env.STRIPE_CLIENT,
+
       // your api options override for stripe client side
       options: {},
     },
