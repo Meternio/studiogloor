@@ -4,5 +4,8 @@ module.exports = {
     fontFamily: {
       sans: 'Roboto, sans-serif',
     },
+    colors: {
+      primary: '#F1EFE7'
+    }
   },
 }

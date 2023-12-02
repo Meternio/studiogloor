@@ -14,7 +14,13 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@unlok-co/nuxt-stripe",
     "@pinia/nuxt",
+    "nuxt-icon",
   ],
+  image: {
+    storyblok: {
+      baseURL: 'https://a.storyblok.com'
+    }
+  },
   stripe: {
     // Server
     server: {
