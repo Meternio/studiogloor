@@ -1,7 +1,7 @@
 <script setup>
 import { useSnackbarStore } from "@/stores/snackbarStore";
 import { getToken } from "firebase/app-check";
-import { useAppCheck } from "vuefire";
+import { useAppCheck, getCurrentUser } from "vuefire";
 
 const appCheck = useAppCheck();
 const snackbarStore = useSnackbarStore();
@@ -30,6 +30,8 @@ async function initializeStripe() {
     return;
   }
 
+  const user = await getCurrentUser();
+
   // Make a request to your server to get the client secret
   const response = await fetch("/api/create-payment-intent", {
     method: "POST",
@@ -37,7 +39,7 @@ async function initializeStripe() {
       "Content-Type": "application/json",
       "X-Firebase-AppCheck-Token": appCheckTokenResponse.token,
     },
-    body: JSON.stringify({ items: [{ id: "xl-tshirt" }] }),
+    body: JSON.stringify({ user_token: await user.getIdToken() }),
   });
   const { clientSecret } = await response.json();
   elements = stripe.value.elements({ clientSecret, loader, appearance });

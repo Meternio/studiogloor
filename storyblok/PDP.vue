@@ -18,7 +18,8 @@
         </p>
         <div v-html="resolvedRichText"></div>
         <button
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          class="bg-primary hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          @click="basketStore.addToBasket({ name: blok.name, price: blok.price, description: blok.description, image: blok.productImage, uid: props.pageUid})"
         >
           Add to cart
         </button>
@@ -33,6 +34,9 @@
 </template>
 
 <script setup>
-const props = defineProps({ blok: Object });
+import { useBasketStore } from "@/stores/basketStore";
+
+const props = defineProps({ blok: Object, pageUid: String });
 const resolvedRichText = computed(() => renderRichText(props.blok.description));
+const basketStore = useBasketStore();
 </script>

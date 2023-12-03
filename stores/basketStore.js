@@ -1,12 +1,43 @@
-export const useBasketStore = defineStore("basket", () => {
-  const items = ref([]);
+import { useFirestore, getCurrentUser } from "vuefire";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 
-  function addToBasket(item) {
-    items.value.push(item);
+export const useBasketStore = defineStore("basket", () => {
+  const db = useFirestore();
+  const products = ref({});
+  const countProductsInBasket = ref("...");
+
+  getBasket();
+
+  async function addToBasket(item) {
+    if(products.value.hasOwnProperty(item.uid)) {
+      return;
+    }
+    const user = await getCurrentUser();
+    products.value[item.uid] = {
+      name: item.name,
+      price: item.price,
+      description: item.description,
+      image: item.image,
+    };
+
+    await setDoc(doc(db, "basket", user.uid), products.value);
+    countProductsInBasket.value += 1;
+  }
+
+  async function getBasket() {
+    const user = await getCurrentUser();
+    const docSnap = await getDoc(doc(db, "basket", user.uid));
+    if (docSnap.exists()) {
+      products.value = docSnap.data();
+      countProductsInBasket.value = Object.keys(products.value).length;
+    } else {
+      countProductsInBasket.value = 0;
+    }
   }
 
   return {
     addToBasket,
-    items,
+    products,
+    countProductsInBasket,
   };
 });

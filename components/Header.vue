@@ -10,7 +10,7 @@ const basketStore = useBasketStore();
     class="header flex flex-row justify-between p-4 items-center relative mb-8"
     :class="{ 'menu-open': menuOpen }"
   >
-    <NuxtLink to="/basket" class="header__basket relative -ml-3 z-20">
+    <NuxtLink to="/basket" class="header__basket relative -ml-3 z-30" @click="menuOpen = false">
       <Icon
         name="material-symbols-light:shopping-bag-outline"
         view-box="0 0 60 60"
@@ -20,10 +20,10 @@ const basketStore = useBasketStore();
       />
       <span
         class="absolute left-1/2 top-[calc(50%+7px)] -translate-x-1/2 -translate-y-1/2"
-        >{{ basketStore.items.length }}</span
+        >{{ basketStore.countProductsInBasket }}</span
       >
     </NuxtLink>
-    <NuxtLink to="/" class="header__logo z-20">
+    <NuxtLink to="/" class="header__logo z-30" @click="menuOpen = false">
       <NuxtImg
         src="https://a.storyblok.com/f/264451/269x115/8935572524/studiogloor_logo-removedbg.png"
         alt="Studiogloor Logo"
@@ -38,13 +38,14 @@ const basketStore = useBasketStore();
       width="40"
       height="40"
       color="black"
-      class="header__burger z-20 cursor-pointer transition-all"
+      class="header__burger z-30 cursor-pointer transition-all"
       @click="menuOpen = !menuOpen"
     />
     <Transition>
-      <nav v-if="menuOpen" class="header__nav z-10 fixed top-0 left-0 bottom-0 right-0 flex flex-col justify-center items-center text-black text-2xl font-bold text-center">
+      <nav v-if="menuOpen" class="header__nav z-20 fixed top-0 left-0 bottom-0 right-0 flex flex-col justify-center items-center text-black text-2xl font-bold text-center">
         <ul
           class="header__nav__menu"
+          @click="menuOpen = false"
         >
           <li class="header__nav__menu__item">
             <NuxtLink to="/">Home</NuxtLink>
@@ -62,7 +63,7 @@ const basketStore = useBasketStore();
       </nav>
     </Transition>
     <div
-      class="header__background absolute top-0 right-0 bg-primary h-28 w-24 rounded-bl-[100%] transition-all duration-500"
+      class="header__background z-10 absolute top-0 right-0 bg-primary h-28 w-24 rounded-bl-[100%] transition-all duration-500"
     ></div>
   </header>
 </template>

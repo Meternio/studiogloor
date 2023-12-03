@@ -6,5 +6,5 @@ const story = await useAsyncStoryblok("products/" + slug.join("/"), {
 </script>
 
 <template>
-  <PDP v-if="story" :blok="story.content"/>
+  <PDP v-if="story" :blok="story.content" :page-uid="story.uuid"/>
 </template>
