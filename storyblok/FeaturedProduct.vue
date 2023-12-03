@@ -1,13 +1,13 @@
 <template>
   <NuxtLink
-    :to="`/products/`"
+    :to="`/products/${product.slug}`"
     v-editable="blok"
     class="featured-product flex items-center justify-center flex-col my-24"
   >
     <NuxtImg
-      :src="product.productImage.filename"
-      :alt="product.productImage.alt"
-      width="400"
+      :src="product.content.productImage.filename"
+      :alt="product.content.productImage.alt"
+      height="600"
       class="featured-product__image"
       provider="storyblok"
       format="webp"
@@ -27,6 +27,6 @@ const { data } = await storyblokApi.get("cdn/stories/", {
   version: "draft",
   by_uuids: props.blok.product
 });
-product.value = data.stories[0].content;
-const resolvedRichText = computed(() => renderRichText(product.value.description));
+product.value = data.stories[0];
+const resolvedRichText = computed(() => renderRichText(product.value.content.description));
 </script>

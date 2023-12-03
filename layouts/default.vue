@@ -4,6 +4,7 @@
   <div>
     <Header/>
     <slot />
+    <Footer/>
     <Snackbar/>
   </div>
 </template>
