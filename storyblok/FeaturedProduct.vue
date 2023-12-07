@@ -12,10 +12,9 @@
       provider="storyblok"
       format="webp"
     />
-    <div
-      v-html="resolvedRichText"
-      class="featured-product__description text-center mt-3"
-    ></div>
+    <h4
+      class="featured-product__description text-center mt-3 font-bold"
+    >{{ product.name }}</h4>
   </NuxtLink>
 </template>
 
@@ -28,5 +27,4 @@ const { data } = await storyblokApi.get("cdn/stories/", {
   by_uuids: props.blok.product
 });
 product.value = data.stories[0];
-const resolvedRichText = computed(() => renderRichText(product.value.content.description));
 </script>

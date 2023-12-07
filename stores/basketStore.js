@@ -5,6 +5,7 @@ export const useBasketStore = defineStore("basket", () => {
   const db = useFirestore();
   const products = ref({});
   const countProductsInBasket = ref("...");
+  const fetchingProducts = ref(true);
 
   getBasket();
 
@@ -24,7 +25,24 @@ export const useBasketStore = defineStore("basket", () => {
     countProductsInBasket.value += 1;
   }
 
+  async function removeFromBasket(uid) {
+    if(!products.value.hasOwnProperty(uid)) {
+      return;
+    }
+    const user = await getCurrentUser();
+    delete products.value[uid];
+
+    if(products.value.length === 0) {
+      await deleteDoc(doc(db, "basket", user.uid));
+    } else {
+      await setDoc(doc(db, "basket", user.uid), {products: products.value, timestamp: Date.now()});
+    }
+
+    countProductsInBasket.value -= 1;
+  }
+
   async function getBasket() {
+    fetchingProducts.value = true;
     const user = await getCurrentUser();
     const docSnap = await getDoc(doc(db, "basket", user.uid));
     if (docSnap.exists()) {
@@ -33,11 +51,14 @@ export const useBasketStore = defineStore("basket", () => {
     } else {
       countProductsInBasket.value = 0;
     }
+    fetchingProducts.value = false;
   }
 
   return {
     addToBasket,
+    removeFromBasket,
     products,
     countProductsInBasket,
+    fetchingProducts,
   };
 });

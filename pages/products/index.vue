@@ -37,7 +37,7 @@ function setTitle(title) {
 }
 
 function unSetTitle() {
-  //hoverTitle.value = null;
+  hoverTitle.value = null;
 }
 </script>
 
