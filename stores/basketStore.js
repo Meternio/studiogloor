@@ -20,7 +20,7 @@ export const useBasketStore = defineStore("basket", () => {
       image: item.image,
     };
 
-    await setDoc(doc(db, "basket", user.uid), products.value);
+    await setDoc(doc(db, "basket", user.uid), {products: products.value, timestamp: Date.now()});
     countProductsInBasket.value += 1;
   }
 
@@ -28,7 +28,7 @@ export const useBasketStore = defineStore("basket", () => {
     const user = await getCurrentUser();
     const docSnap = await getDoc(doc(db, "basket", user.uid));
     if (docSnap.exists()) {
-      products.value = docSnap.data();
+      products.value = docSnap.data().products || {};
       countProductsInBasket.value = Object.keys(products.value).length;
     } else {
       countProductsInBasket.value = 0;

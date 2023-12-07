@@ -20,12 +20,12 @@ const calculateOrderAmount = async (user_token) => {
     .doc(user.uid)
     .get();
   if (snapShot.exists) {
-    const basket = snapShot.data();
+    const products = snapShot.data().products || {};
 
     // iteratoe over basket keys and calculate total
     let total = 0;
-    for (const key in basket) {
-      total += parseFloat(basket[key].price);
+    for (const key in products) {
+      total += parseFloat(products[key].price);
     }
 
     return total * 100;
