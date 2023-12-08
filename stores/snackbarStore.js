@@ -1,6 +1,7 @@
 export const useSnackbarStore = defineStore("snackbar", () => {
   const snackbarQueue = [];
   const isVisible = ref(false);
+  const isError = ref(false);
   const text = ref('');
   let isProcessing = false;
 
@@ -21,6 +22,7 @@ export const useSnackbarStore = defineStore("snackbar", () => {
 
     text.value = data.text || 'Ups, da ist etwas schief gelaufen!';
     isVisible.value = true;
+    isError.value = data.isError || false;
     setTimeout(() => {
       isVisible.value = false;
       setTimeout(() => {
@@ -32,6 +34,7 @@ export const useSnackbarStore = defineStore("snackbar", () => {
   return {
     showSnackbar,
     isVisible,
+    isError,
     text,
   };
 });

@@ -51,8 +51,9 @@ export default defineEventHandler(async (event) => {
   const { user_token } = await readBody(event);
 
   // Create a PaymentIntent with the order amount and currency
+  const total = await calculateOrderAmount(user_token);
   const paymentIntent = await stripe.paymentIntents.create({
-    amount: await calculateOrderAmount(user_token),
+    amount: total,
     currency: "chf",
     automatic_payment_methods: {
       enabled: true,
@@ -61,5 +62,6 @@ export default defineEventHandler(async (event) => {
 
   return {
     clientSecret: paymentIntent.client_secret,
+    total,
   };
 });
