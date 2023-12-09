@@ -7,6 +7,7 @@ import { useBasketStore } from "@/stores/basketStore";
 const basketStore = useBasketStore();
 const appCheck = useAppCheck();
 const snackbarStore = useSnackbarStore();
+const url = useRequestURL();
 const disabledSubmit = ref(true);
 const loadingStripe = ref(true);
 const totalOfBasket = ref(0);
@@ -67,7 +68,7 @@ async function handleStripePayment(event) {
   const { error } = await stripe.value.confirmPayment({
     elements,
     confirmParams: {
-      return_url: "https://example.com/order/123/complete",
+      return_url: `${url.origin}/success`,
     },
   });
 
@@ -111,8 +112,11 @@ onMounted(() => {
           >
         </div>
       </div>
-      <span class="font-bold block text-right border-t-2 border-double pt-4">Total:
-      {{ (Math.round(totalOfBasket * 100) / 100).toFixed(2) }} CHF<br>nicht MwSt. pflichtig</span>
+      <span class="font-bold block text-right border-t-2 border-double pt-4"
+        >Total:
+        {{ (Math.round(totalOfBasket * 100) / 100).toFixed(2) }} CHF<br />nicht
+        MwSt. pflichtig</span
+      >
     </div>
     <div class="flex flex-row flex-nowrap justify-between mt-24">
       <NuxtLink to="/basket" class="font-bold py-2 px-4 rounded underline">
