@@ -1,6 +1,6 @@
 <template>
   <div v-editable="blok">
-    <PageTitle :blok="{ headline: blok.name, tag: 'h1' }"/>
+    <PageTitle :blok="{ headline: blok.name, tag: 'h1' }" />
     <div class="flex flex-col md:flex-row my-24 gap-4">
       <div class="w-full md:w-1/2">
         <NuxtImg
@@ -14,15 +14,35 @@
       </div>
       <div class="w-full md:w-1/2 flex flex-col gap-4">
         <div v-html="resolvedRichText"></div>
-        <p class="text-xl font-bold">
-          {{ (Math.round(blok.price * 100) / 100).toFixed(2) }} CHF
-        </p>
-        <button
-          class="w-fit bg-primary hover:bg-primaryDark font-bold py-2 px-4 rounded"
-          @click="basketStore.addToBasket({ name: blok.name, price: blok.price, description: blok.description, image: blok.productImage, uid: props.pageUid})"
+        <div v-if="!blok.sold" class="flex flex-col gap-2">
+          <p>
+            {{ blok.width }} cm x {{ blok.height }} cm x {{ blok.depth }} cm
+          </p>
+          <p class="text-xl font-bold">
+            {{ (Math.round(blok.price * 100) / 100).toFixed(2) }} CHF
+          </p>
+          <button
+            class="w-fit bg-primary hover:bg-primaryDark font-bold py-2 px-4 rounded"
+            @click="
+              basketStore.addToBasket({
+                name: blok.name,
+                price: blok.price,
+                description: blok.description,
+                image: blok.productImage,
+                uid: props.pageUid,
+              })
+            "
+          >
+            Add to cart
+          </button>
+        </div>
+
+        <p
+          v-if="blok.sold"
+          class="bg-primary font-bold py-2 px-4 rounded text-center"
         >
-          Add to cart
-        </button>
+          Sold
+        </p>
       </div>
     </div>
     <StoryblokComponent

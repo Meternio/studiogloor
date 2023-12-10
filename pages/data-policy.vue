@@ -1,9 +1,7 @@
 <script setup>
-
+const story = await useAsyncStoryblok('data-policy', { version: 'draft' });
 </script>
 
 <template>
-  <div>
-    <h1>Data Policy</h1>
-  </div>
+  <StoryblokComponent v-if="story" :blok="story.content" />
 </template>

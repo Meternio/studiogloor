@@ -1,9 +1,7 @@
 <script setup>
-
+const story = await useAsyncStoryblok('imprint', { version: 'draft' });
 </script>
 
 <template>
-  <div>
-    <h1>Imprint</h1>
-  </div>
+  <StoryblokComponent v-if="story" :blok="story.content" />
 </template>
