@@ -30,6 +30,7 @@
                 description: blok.description,
                 image: blok.productImage,
                 uid: props.pageUid,
+                slug: route.path,
               })
             "
           >
@@ -59,4 +60,5 @@ import { useBasketStore } from "@/stores/basketStore";
 const props = defineProps({ blok: Object, pageUid: String });
 const resolvedRichText = computed(() => renderRichText(props.blok.description));
 const basketStore = useBasketStore();
+const route = useRoute();
 </script>

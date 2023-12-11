@@ -1,5 +1,5 @@
 import { useFirestore, getCurrentUser } from "vuefire";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc, deleteDoc } from "firebase/firestore";
 import { useSnackbarStore } from "@/stores/snackbarStore";
 
 export const useBasketStore = defineStore("basket", () => {
@@ -22,6 +22,7 @@ export const useBasketStore = defineStore("basket", () => {
       price: item.price,
       description: item.description,
       image: item.image,
+      slug: item.slug,
     };
 
     await setDoc(doc(db, "basket", user.uid), {products: products.value, timestamp: Date.now()});
@@ -46,6 +47,14 @@ export const useBasketStore = defineStore("basket", () => {
     snackbarStore.showSnackbar({ text: 'removed from the basket' });
   }
 
+  async function removeAllFromBasket() {
+    const user = await getCurrentUser();
+
+    await deleteDoc(doc(db, "basket", user.uid));
+    products.value = {};
+    countProductsInBasket.value = 0;
+  }
+
   async function getBasket() {
     fetchingProducts.value = true;
     const user = await getCurrentUser();
@@ -62,6 +71,7 @@ export const useBasketStore = defineStore("basket", () => {
   return {
     addToBasket,
     removeFromBasket,
+    removeAllFromBasket,
     products,
     countProductsInBasket,
     fetchingProducts,

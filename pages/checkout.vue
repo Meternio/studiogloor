@@ -88,58 +88,60 @@ onMounted(() => {
 </script>
 
 <template>
-  <PageTitle :blok="{ headline: 'Checkout', tag: 'h1' }" />
-  <Transition>
-    <form
-      @submit="handleStripePayment"
-      class="container mx-auto my-24"
-      v-show="!loadingStripe"
-    >
-      <h2 class="text-xl font-bold mb-2">Payment details</h2>
-      <div id="linkAuthentication" class="mb-2"></div>
-      <div id="payment-element" class="mb-3"></div>
-      <div id="address-element"></div>
-      <h2 class="text-xl font-bold mb-2 mt-8">Order details</h2>
-      <div>
-        <div class="flex flex-col gap-2 mb-4">
-          <div
-            v-for="(product, key) in basketStore.products"
-            :key="key"
-            class="flex justify-between pb-2 border-primary border-b-2 last:pb-0 last:border-b-0"
-          >
-            <span> 1x {{ product.name }} </span>
-            <span
-              >{{
-                (Math.round(totalOfBasket * 100) / 100).toFixed(2)
-              }}
-              CHF</span
+  <div>
+    <PageTitle :blok="{ headline: 'Checkout', tag: 'h1' }" />
+    <Transition>
+      <form
+        @submit="handleStripePayment"
+        class="container mx-auto my-24"
+        v-show="!loadingStripe"
+      >
+        <h2 class="text-xl font-bold mb-2">Payment details</h2>
+        <div id="linkAuthentication" class="mb-2"></div>
+        <div id="payment-element" class="mb-3"></div>
+        <div id="address-element"></div>
+        <h2 class="text-xl font-bold mb-2 mt-8">Order details</h2>
+        <div>
+          <div class="flex flex-col gap-2 mb-4">
+            <div
+              v-for="(product, key) in basketStore.products"
+              :key="key"
+              class="flex justify-between pb-2 border-primary border-b-2 last:pb-0 last:border-b-0"
             >
+              <span> 1x {{ product.name }} </span>
+              <span
+                >{{
+                  (Math.round(totalOfBasket * 100) / 100).toFixed(2)
+                }}
+                CHF</span
+              >
+            </div>
           </div>
+          <span class="font-bold block text-right border-t-2 border-double pt-4"
+            >Total:
+            {{ (Math.round(totalOfBasket * 100) / 100).toFixed(2) }}
+            CHF<br />not subject to VAT</span
+          >
         </div>
-        <span class="font-bold block text-right border-t-2 border-double pt-4"
-          >Total:
-          {{ (Math.round(totalOfBasket * 100) / 100).toFixed(2) }}
-          CHF<br />not subject to VAT</span
-        >
-      </div>
-      <div class="flex flex-row flex-nowrap justify-between mt-24">
-        <NuxtLink to="/basket" class="font-bold py-2 px-4 rounded underline">
-          Back to the basket
-        </NuxtLink>
-        <button
-          type="submit"
-          :disabled="disabledSubmit"
-          class="bg-primary hover:bg-primaryDark font-bold py-2 px-4 rounded"
-        >
-          Order with payment
-        </button>
-      </div>
-    </form>
-  </Transition>
-  <div
-    v-show="loadingStripe"
-    class="container mx-auto my-24 font-bold text-center"
-  >
-    <p>Loading...</p>
+        <div class="flex flex-row flex-nowrap justify-between mt-24">
+          <NuxtLink to="/basket" class="font-bold py-2 px-4 rounded underline">
+            Back to the basket
+          </NuxtLink>
+          <button
+            type="submit"
+            :disabled="disabledSubmit"
+            class="bg-primary hover:bg-primaryDark font-bold py-2 px-4 rounded"
+          >
+            Order with payment
+          </button>
+        </div>
+      </form>
+    </Transition>
+    <div
+      v-show="loadingStripe"
+      class="container mx-auto my-24 font-bold text-center"
+    >
+      <p>Loading...</p>
+    </div>
   </div>
 </template>

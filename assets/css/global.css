@@ -1,3 +1,14 @@
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 .layout > *:not(footer):not(header):not(.page-title) {
   padding-left: 15px;
   padding-right: 15px;
@@ -29,12 +40,25 @@
   opacity: 0;
 }
 
-.slideUp-enter-active,
+.slideUp-enter-active{
+  transition: transform 0.4s ease-in-out;
+}
+
 .slideUp-leave-active {
-  transition: transform 0.5s ease-in-out;
+  transition: transform 0.2s ease-in-out;
 }
 
 .slideUp-enter-from,
 .slideUp-leave-to {
   transform: translate(-50%, 100%);
+}
+
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.4s;
+}
+.page-enter-from,
+.page-leave-to {
+  opacity: 0;
+  filter: blur(1rem);
 }

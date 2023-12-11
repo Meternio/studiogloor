@@ -28,7 +28,7 @@ const calculateOrderAmount = async (user_token) => {
       total += parseFloat(products[key].price);
     }
 
-    return total * 100;
+    return  Math.round(total * 100);
   }
 
   return null;

@@ -17,6 +17,9 @@ export default defineNuxtConfig({
     "nuxt-icon",
     'nuxt-vuefire',
   ],
+  app: {
+    pageTransition: { name: 'page', mode: 'out-in' }
+  },
   vuefire: {
     appCheck: {
       debug: process.env.NODE_ENV !== 'production',
