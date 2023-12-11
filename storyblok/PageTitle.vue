@@ -1,7 +1,7 @@
 <template>
   <div
     v-editable="blok"
-    class="py-24 text-6xl text-black font-bold text-center bg-primary container mx-auto"
+    class="page-title py-24 text-6xl text-black font-bold text-center bg-primary container mx-auto"
   >
     <h1 v-if="blok.tag == 'h1'">
       {{ blok.headline }}

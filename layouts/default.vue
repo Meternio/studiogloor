@@ -10,7 +10,7 @@ signInAnonymously(auth).catch((error) => {
 </script>
 
 <template>
-  <div>
+  <div class="layout">
     <Header />
     <slot />
     <Footer />

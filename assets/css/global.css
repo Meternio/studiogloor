@@ -1,3 +1,21 @@
+.layout > *:not(footer):not(header):not(.page-title) {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.storyblok__outline > .page-title, .plp > .page-title {
+  position: relative;
+  left: -15px;
+  width: calc(100% + 30px);
+}
+
+@media screen and (min-width: 640px) {
+  .storyblok__outline > .page-title, .plp > .page-title {
+    left: 0;
+    width: 100%;
+  }
+}
+
 .v-leave-active {
   transition: opacity 0.3s ease;
 }

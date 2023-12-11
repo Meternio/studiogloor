@@ -7,8 +7,8 @@ const snackbarStore = useSnackbarStore();
 <template>
   <Transition name="slideUp">
     <div
-      class="snackbar fixed bottom-0 left-1/2 -translate-x-1/2 -translate-y-3 flex gap-2 p-3 rounded-lg"
-      :class="{'bg-error text-white' : snackbarStore.isError}"
+      class="snackbar fixed bottom-0 left-1/2 -translate-x-1/2 -translate-y-3 flex gap-2 p-3 rounded-lg w-max"
+      :class="{'bg-error text-white' : snackbarStore.isError, 'bg-primary text-black' : !snackbarStore.isError}"
       v-if="snackbarStore.isVisible"
     >
       <svg

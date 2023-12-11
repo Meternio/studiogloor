@@ -1,16 +1,19 @@
 import { useFirestore, getCurrentUser } from "vuefire";
 import { doc, setDoc, getDoc } from "firebase/firestore";
+import { useSnackbarStore } from "@/stores/snackbarStore";
 
 export const useBasketStore = defineStore("basket", () => {
   const db = useFirestore();
   const products = ref({});
   const countProductsInBasket = ref("...");
   const fetchingProducts = ref(true);
+  const snackbarStore = useSnackbarStore();
 
   getBasket();
 
   async function addToBasket(item) {
     if(products.value.hasOwnProperty(item.uid)) {
+      snackbarStore.showSnackbar({ text: 'product is already in the basket' });
       return;
     }
     const user = await getCurrentUser();
@@ -23,6 +26,7 @@ export const useBasketStore = defineStore("basket", () => {
 
     await setDoc(doc(db, "basket", user.uid), {products: products.value, timestamp: Date.now()});
     countProductsInBasket.value += 1;
+    snackbarStore.showSnackbar({ text: 'added to the basket' });
   }
 
   async function removeFromBasket(uid) {
@@ -39,6 +43,7 @@ export const useBasketStore = defineStore("basket", () => {
     }
 
     countProductsInBasket.value -= 1;
+    snackbarStore.showSnackbar({ text: 'removed from the basket' });
   }
 
   async function getBasket() {

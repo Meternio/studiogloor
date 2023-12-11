@@ -54,7 +54,9 @@ export default defineNuxtConfig({
       key: process.env.STRIPE_CLIENT,
 
       // your api options override for stripe client side
-      options: {},
+      options: {
+        locale: 'en',
+      },
     },
   },
 });
