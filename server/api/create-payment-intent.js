@@ -1,17 +1,12 @@
 import { useServerStripe } from "#stripe/server";
 import { getAppCheck } from "firebase-admin/app-check";
-import { initializeApp } from "firebase-admin/app";
+import {
+  getApp,
+  initializeApp,
+  cert,
+} from "firebase-admin/app";
 import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
-import admin from "firebase-admin";
-
-const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-
-if (!admin.apps.length) {
-  initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-}
 
 const calculateOrderAmount = async (user_token) => {
   const user = await getAuth().verifyIdToken(user_token);
@@ -35,6 +30,16 @@ const calculateOrderAmount = async (user_token) => {
 };
 
 export default defineEventHandler(async (event) => {
+  const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+
+  try {
+    getApp();
+  } catch (err) {
+    initializeApp({
+      credential: cert(serviceAccount),
+    });
+  }
+
   const appCheckToken = event.headers.get("x-firebase-appcheck-token");
 
   if (!appCheckToken) {
