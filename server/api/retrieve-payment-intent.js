@@ -5,7 +5,7 @@ import admin from "firebase-admin";
 
 const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 
-if (admin.apps.length === 0) {
+if (!admin.apps.length) {
   initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
@@ -28,11 +28,9 @@ export default defineEventHandler(async (event) => {
   const { payment_intent } = event.req.body;
 
   // Create a PaymentIntent with the order amount and currency
-  const paymentIntent = await stripe.paymentIntents.retrieve(
-    payment_intent
-  );
+  const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent);
 
   return {
-    paymentIntent
+    paymentIntent,
   };
 });
