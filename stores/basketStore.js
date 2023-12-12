@@ -10,8 +10,8 @@ export const useBasketStore = defineStore("basket", () => {
   const snackbarStore = useSnackbarStore();
 
   async function addToBasket(item) {
-    if(products.value.hasOwnProperty(item.uid)) {
-      snackbarStore.showSnackbar({ text: 'product is already in the basket' });
+    if (products.value.hasOwnProperty(item.uid)) {
+      snackbarStore.showSnackbar({ text: "product is already in the basket" });
       return;
     }
     const user = await getCurrentUser();
@@ -23,26 +23,32 @@ export const useBasketStore = defineStore("basket", () => {
       slug: item.slug,
     };
 
-    await setDoc(doc(db, "basket", user.uid), {products: products.value, timestamp: Date.now()});
+    await setDoc(doc(db, "basket", user.uid), {
+      products: products.value,
+      timestamp: Date.now(),
+    });
     countProductsInBasket.value += 1;
-    snackbarStore.showSnackbar({ text: 'added to the basket' });
+    snackbarStore.showSnackbar({ text: "added to the basket" });
   }
 
   async function removeFromBasket(uid) {
-    if(!products.value.hasOwnProperty(uid)) {
+    if (!products.value.hasOwnProperty(uid)) {
       return;
     }
     const user = await getCurrentUser();
     delete products.value[uid];
 
-    if(products.value.length === 0) {
+    if (products.value.length === 0) {
       await deleteDoc(doc(db, "basket", user.uid));
     } else {
-      await setDoc(doc(db, "basket", user.uid), {products: products.value, timestamp: Date.now()});
+      await setDoc(doc(db, "basket", user.uid), {
+        products: products.value,
+        timestamp: Date.now(),
+      });
     }
 
     countProductsInBasket.value -= 1;
-    snackbarStore.showSnackbar({ text: 'removed from the basket' });
+    snackbarStore.showSnackbar({ text: "removed from the basket" });
   }
 
   async function removeAllFromBasket() {
@@ -56,9 +62,11 @@ export const useBasketStore = defineStore("basket", () => {
   async function getBasket() {
     fetchingProducts.value = true;
     const user = await getCurrentUser();
-    const docSnap = await getDoc(doc(db, "basket", user.uid));
+    const docSnap = await getDoc(doc(db, "basket", user.uid)).catch(
+      (error) => {}
+    );
 
-    if (docSnap.exists()) {
+    if (docSnap && docSnap.exists()) {
       products.value = docSnap.data().products || {};
       countProductsInBasket.value = Object.keys(products.value).length;
     } else {
