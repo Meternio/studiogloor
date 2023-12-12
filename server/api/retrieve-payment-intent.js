@@ -3,15 +3,14 @@ import { getAppCheck } from "firebase-admin/app-check";
 import { initializeApp } from "firebase-admin/app";
 import admin from "firebase-admin";
 
-const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-
-if (admin.apps.length === 0) {
-  initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-}
-
 export default defineEventHandler(async (event) => {
+  const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+  if (admin.apps.length === 0) {
+    initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+  }
+
   const appCheckToken = event.headers.get("x-firebase-appcheck-token");
 
   if (!appCheckToken) {

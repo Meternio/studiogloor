@@ -5,14 +5,6 @@ import { getFirestore } from "firebase-admin/firestore";
 import { getAuth } from "firebase-admin/auth";
 import admin from "firebase-admin";
 
-const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-
-if (admin.apps.length === 0) {
-  initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-  });
-}
-
 const calculateOrderAmount = async (user_token) => {
   const user = await getAuth().verifyIdToken(user_token);
   const snapShot = await getFirestore()
@@ -28,13 +20,20 @@ const calculateOrderAmount = async (user_token) => {
       total += parseFloat(products[key].price);
     }
 
-    return  Math.round(total * 100);
+    return Math.round(total * 100);
   }
 
   return null;
 };
 
 export default defineEventHandler(async (event) => {
+  const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+  if (admin.apps.length === 0) {
+    initializeApp({
+      credential: admin.credential.cert(serviceAccount),
+    });
+  }
+
   const appCheckToken = event.headers.get("x-firebase-appcheck-token");
 
   if (!appCheckToken) {
