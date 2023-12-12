@@ -1,11 +1,16 @@
 <script setup>
 import { signInAnonymously } from "firebase/auth";
+import { useBasketStore } from "@/stores/basketStore";
 
 const auth = useFirebaseAuth();
-signInAnonymously(auth).catch((error) => {
-  const errorCode = error.code;
-  const errorMessage = error.message;
-  console.error(errorCode, errorMessage);
+const basketStore = useBasketStore();
+
+onMounted(() => {
+  signInAnonymously(auth).then(() => basketStore.getBasket()).catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error(errorCode, errorMessage);
+  });
 });
 </script>
 

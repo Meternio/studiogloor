@@ -9,8 +9,6 @@ export const useBasketStore = defineStore("basket", () => {
   const fetchingProducts = ref(true);
   const snackbarStore = useSnackbarStore();
 
-  getBasket();
-
   async function addToBasket(item) {
     if(products.value.hasOwnProperty(item.uid)) {
       snackbarStore.showSnackbar({ text: 'product is already in the basket' });
@@ -59,6 +57,7 @@ export const useBasketStore = defineStore("basket", () => {
     fetchingProducts.value = true;
     const user = await getCurrentUser();
     const docSnap = await getDoc(doc(db, "basket", user.uid));
+
     if (docSnap.exists()) {
       products.value = docSnap.data().products || {};
       countProductsInBasket.value = Object.keys(products.value).length;
@@ -72,6 +71,7 @@ export const useBasketStore = defineStore("basket", () => {
     addToBasket,
     removeFromBasket,
     removeAllFromBasket,
+    getBasket,
     products,
     countProductsInBasket,
     fetchingProducts,
