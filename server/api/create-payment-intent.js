@@ -6,8 +6,9 @@ import { getAuth } from "firebase-admin/auth";
 import admin from "firebase-admin";
 
 const serviceAccount = JSON.parse(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-
-if (!admin.apps || admin.apps.length === 0) {
+console.log(admin);
+console.log(serviceAccount);
+if (admin.apps.length === 0) {
   initializeApp({
     credential: admin.credential.cert(serviceAccount),
   });
