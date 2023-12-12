@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     appCheck: {
       debug: process.env.NODE_ENV !== 'production',
       isTokenAutoRefreshEnabled: true,
-      provider: 'ReCaptchaV3',
+      provider: 'ReCaptchaEnterprise',
       key: process.env.GOOGLE_RECAPTCHA_KEY,
     },
     auth: {
