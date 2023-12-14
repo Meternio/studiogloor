@@ -16,7 +16,9 @@
         <div v-html="resolvedRichText"></div>
         <div v-if="!blok.sold" class="flex flex-col gap-2">
           <p>
-            {{ blok.width }} cm x {{ blok.height }} cm x {{ blok.depth }} cm
+            <span>{{ blok.width }} cm </span>
+            <span>x {{ blok.height }} cm </span>
+            <span v-if="blok.depth">x {{ blok.depth }} cm</span>
           </p>
           <p class="text-xl font-bold">
             {{ (Math.round(blok.price * 100) / 100).toFixed(2) }} CHF
