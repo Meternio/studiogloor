@@ -3,6 +3,7 @@
     :to="`/products/${product.slug}`"
     v-editable="blok"
     class="featured-product flex items-center justify-center flex-col my-24 container mx-auto"
+    v-if="product && !product.content.sold"
   >
     <NuxtImg
       :src="product.content.productImage.filename"
