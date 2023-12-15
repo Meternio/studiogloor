@@ -6,7 +6,7 @@
         <NuxtImg
           :src="blok.productImage.filename"
           :alt="blok.productImage.alt"
-          width="200"
+          width="745"
           class="w-full"
           provider="storyblok"
           format="webp"
