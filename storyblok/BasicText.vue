@@ -12,6 +12,9 @@ const resolvedRichText = computed(() => renderRichText(props.blok.text));
 <style lang="less">
 .basic-text {
     h2 {
+        font-weight: bold;
+        font-size: 1.5rem;
+        
         &:not(:first-of-type) {
             margin: 2rem 0 0.75rem 0;
         }
