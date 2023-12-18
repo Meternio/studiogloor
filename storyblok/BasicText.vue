@@ -7,4 +7,18 @@
 const props = defineProps({ blok: Object });
 const resolvedRichText = computed(() => renderRichText(props.blok.text));
 </script>
-  
+
+
+<style lang="less">
+.basic-text {
+    h2 {
+        &:not(:first-of-type) {
+            margin: 2rem 0 0.75rem 0;
+        }
+
+        &:first-of-type {
+            margin: 0 0 0.75rem 0;
+        }
+    }
+}
+</style>
