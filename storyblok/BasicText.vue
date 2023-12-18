@@ -1,5 +1,5 @@
 <template>
-    <div v-html="resolvedRichText" class="basic-text">
+    <div v-html="resolvedRichText" class="basic-text w-full">
     </div>
 </template>
   
