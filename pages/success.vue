@@ -3,7 +3,7 @@ import { useAppCheck } from "vuefire";
 import { getToken } from "firebase/app-check";
 import { useBasketStore } from "@/stores/basketStore";
 
-const route = await useRoute();
+const route = useRoute();
 const appCheck = useAppCheck();
 const basketStore = useBasketStore();
 const paymentIntent = ref(null);

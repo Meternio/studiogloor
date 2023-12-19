@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const stripe = await useServerStripe(event);
-  const { payment_intent } = event.req.body;
+  const { payment_intent } = event.node.req.body;
 
   // Create a PaymentIntent with the order amount and currency
   const paymentIntent = await stripe.paymentIntents.retrieve(payment_intent);
