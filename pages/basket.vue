@@ -28,18 +28,18 @@ const resolvedRichText = (richText) => renderRichText(richText);
               class="flex justify-between gap-4 flex-wrap md:flex-nowrap pb-12 border-primary border-b-2 last:pb-0 last:border-b-0"
             >
               <div
-                class="flex flex-row gap-4 items-center flex-wrap md:flex-nowrap justify-center"
+                class="flex flex-row gap-4 items-center flex-wrap md:flex-nowrap"
               >
-                <NuxtLink :to="product.slug" class="min-w-fit">
+                <NuxtLink :to="product.slug" class="min-w-fit md:min-w-0 md:w-96">
                   <NuxtImg
                     :src="product.image.filename"
                     alt="Studiogloor Logo"
                     provider="storyblok"
                     format="webp"
-                    width="300"
+                    width="700"
                   />
                 </NuxtLink>
-                <div>
+                <div class="w-full md:w-auto">
                   <span class="font-bold">{{ product.name }}</span>
                   <div v-html="resolvedRichText(product.description)"></div>
                 </div>
