@@ -23,9 +23,23 @@
 const product = ref(null);
 const props = defineProps({ blok: Object });
 const storyblokApi = useStoryblokApi();
-const { data } = await storyblokApi.get("cdn/stories/", {
-  version: "draft",
-  by_uuids: props.blok.product
-});
-product.value = data.stories[0];
+let response;
+if(!props.blok.random){
+  response = await storyblokApi.get("cdn/stories/", {
+    version: "draft",
+    by_uuids: props.blok.product
+  });
+
+  product.value = response.data.stories[0];
+} else {
+  // get random product with a random number
+  response = await storyblokApi.get("cdn/stories/", {
+    version: "draft",
+    starts_with: "products",
+    is_startpage: false,
+  });
+
+  const random = Math.floor(Math.random() * response.data.stories.length);
+  product.value = response.data.stories[random];
+}
 </script>
