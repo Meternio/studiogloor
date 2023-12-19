@@ -111,7 +111,7 @@ onMounted(() => {
           <div class="font-bold block text-right border-t-2 border-double pt-4">
             <div class="w-80 font-bold ml-auto text-center border-2 p-4 mt-2">Depending on the delivery address
               (especially outside of Europe) there
-              will be additional shipping costs. If you have any questions or want to know how much, please email me at
+              will be additional shipping costs, that are not included in the currently displayed price. If you have any questions or want to know how much, please email me at
               <a href="mailto:info@studiogloor.ch">info@studiogloor.ch</a>
             </div>
             <p class="mt-2">not subject to VAT<br /><span class="border-b-4 border-double">Total:
