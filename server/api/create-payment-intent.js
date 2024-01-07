@@ -19,11 +19,18 @@ const calculateOrderAmount = async (user_token) => {
 
     // iteratoe over basket keys and calculate total
     let total = 0;
-    for (const key in products) {
+    let slugs = '';
+    let keys = Object.keys(products);
+    for (let i = 0; i < keys.length; i++) {
+      let key = keys[i];
       total += parseFloat(products[key].price);
+      slugs += 'https://studiogloor.ch' + products[key].slug;
+      if (i !== keys.length - 1) {
+        slugs += ", ";
+      }
     }
 
-    return Math.round(total * 100);
+    return { total: Math.round(total * 100), slugs };
   }
 
   return null;
@@ -56,13 +63,16 @@ export default defineEventHandler(async (event) => {
   const { user_token } = await readBody(event);
 
   // Create a PaymentIntent with the order amount and currency
-  const total = await calculateOrderAmount(user_token);
+  const { total, slugs } = await calculateOrderAmount(user_token);
   const paymentIntent = await stripe.paymentIntents.create({
     amount: total,
     currency: "chf",
     automatic_payment_methods: {
       enabled: true,
     },
+    metadata: {
+      slugs
+    }
   });
 
   return {

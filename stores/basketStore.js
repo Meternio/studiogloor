@@ -54,6 +54,9 @@ export const useBasketStore = defineStore("basket", () => {
   async function removeAllFromBasket() {
     const user = await getCurrentUser();
 
+    if(!user) {
+      return;
+    }
     await deleteDoc(doc(db, "basket", user.uid));
     products.value = {};
     countProductsInBasket.value = 0;

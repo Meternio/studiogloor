@@ -69,7 +69,7 @@ useHead({
           <NuxtImg
             :src="product.content.productImage.filename"
             :alt="product.content.productImage.alt"
-            width="200"
+            width="500"
             provider="storyblok"
             format="webp"
             class="w-full"

@@ -1,7 +1,7 @@
 <template>
   <div
     v-editable="blok"
-    class="container mx-auto grid md:grid-cols-3 gap-12 my-12 place-items-center"
+    class="gloor-grid container mx-auto flex flex-wrap md:flex-nowrap gap-12 my-24 place-items-center"
   >
     <StoryblokComponent
       v-for="blok in blok.columns"
@@ -14,3 +14,11 @@
 <script setup>
 defineProps({ blok: Object })
 </script>
+
+<style lang="less">
+.gloor-grid {
+    .featured-product {
+      margin: 0;
+    }
+}
+</style>
