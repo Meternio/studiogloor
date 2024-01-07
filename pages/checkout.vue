@@ -103,7 +103,7 @@ onMounted(() => {
               class="flex justify-between pb-2 border-primary border-b-2 last:pb-0 last:border-b-0">
               <span> 1x {{ product.name }} </span>
               <span>{{
-                (Math.round(totalOfBasket * 100) / 100).toFixed(2)
+                (Math.round(product.price * 100) / 100).toFixed(2)
               }}
                 CHF</span>
             </div>
