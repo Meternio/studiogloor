@@ -39,6 +39,13 @@ function setTitle(title) {
 function unSetTitle() {
   hoverTitle.value = null;
 }
+
+useHead({
+  title: "Studiogloor Art Gallery",
+  meta: [
+    { name: "description", content: "Welcome to Gloor's Art Gallery, where emotions come to life on canvas. Immerse yourself in a world of vibrant colors, diverse styles, and the powerful fusion of music and feelings. Each piece tells a unique story, reflecting a rich tapestry of emotions, thoughts, and experiences. Gloor's art invites you to explore the unspoken language of emotion through captivating textures and hues. Whether you're a seasoned art enthusiast or a casual observer, our gallery is a space where creativity and connection intertwine. Enjoy the journey through the emotional landscape of Gloor's artwork—it's a celebration of the beautiful dialogue between heart and canvas." },
+  ]
+});
 </script>
 
 <template>
@@ -73,7 +80,7 @@ function unSetTitle() {
     <Transition>
       <div
         v-if="hoverTitle"
-        class="mix-blend-overlay font-bold fixed text-8xl top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none text-center"
+        class="mix-blend-overlay font-bold fixed text-[16vw]/[16vw] md:text-[12vw]/[12vw] top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none text-center"
       >
         {{ hoverTitle }}
       </div>
