@@ -6,7 +6,7 @@ const hoverTitle = ref(null);
 
 const { data } = await storyblokApi.get("cdn/stories", {
   version: "draft",
-  starts_with: "products",
+  starts_with: "art-gallery",
   is_startpage: false,
   filter_query: {
     sold: {
