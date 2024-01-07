@@ -17,7 +17,9 @@ onMounted(() => {
 <template>
   <div class="layout">
     <Header />
-    <slot />
+    <main>
+      <slot />
+    </main>
     <Footer />
     <Snackbar />
   </div>
