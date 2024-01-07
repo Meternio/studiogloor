@@ -50,7 +50,7 @@ useHead({
 
 <template>
   <div class="plp">
-    <PageTitle :blok="{ headline: 'Art works', tag: 'h1' }" />
+    <PageTitle :blok="{ headline: 'Art Gallery', tag: 'h1' }" />
     <div class="grid grid-cols-1 lg:grid-cols-3 container mx-auto my-24 gap-4">
       <div
         v-for="(group, index) in result"
