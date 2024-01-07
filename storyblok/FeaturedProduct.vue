@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="`/products/${product.slug}`"
+    :to="`/art-gallery/${product.slug}`"
     v-editable="blok"
     class="featured-product flex items-center justify-center flex-col my-24 container mx-auto"
     v-if="product"
