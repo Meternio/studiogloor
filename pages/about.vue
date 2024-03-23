@@ -1,11 +1,11 @@
 <script setup>
 const story = await useAsyncStoryblok('about', { version: 'draft' });
 
-useServerSeoMeta({
-  title: () => story.value.content.Meta.title,
-  description: () => story.value.content.Meta.description,
-  ogTitle: () => story.value.content.Meta.ogTitle,
-  ogDescription: () => story.value.content.Meta.ogDescription,
+useHead({
+  title: "About Studiogloor",
+  meta: [
+    { name: "description", content: "Discover Gloor's abstract art, inspired by the emotional dance of music and feelings. With a diverse range of styles and colors, each piece reflects a unique blend of emotions and experiences. Gloor's art invites you to connect with the unspoken language of emotion through vibrant colors and textures. Dive into a world where creativity meets the floor, forming a profound connection with every canvas." },
+  ]
 });
 </script>
 
