@@ -12,7 +12,7 @@
           format="webp"
         />
       </div>
-      <div class="w-full md:w-1/2 flex flex-col gap-4">
+      <div class="w-full md:w-1/2 flex flex-col gap-4 md:mx-[7%] mx-0">
         <div v-html="resolvedRichText"></div>
         <div v-if="!blok.sold" class="flex flex-col gap-2">
           <p>
