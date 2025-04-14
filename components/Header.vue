@@ -71,7 +71,7 @@ function toggleMenu() {
             <NuxtLink to="/">Home</NuxtLink>
           </li>
           <li class="header__nav__menu__item">
-            <NuxtLink to="/products">Art works</NuxtLink>
+            <NuxtLink to="/art-gallery">Art Gallery</NuxtLink>
           </li>
           <li class="header__nav__menu__item">
             <NuxtLink to="/about">About</NuxtLink>

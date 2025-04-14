@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@nuxt/image": "^1.1.0",
+    "@nuxtjs/seo": "^2.0.0-rc.3",
     "@nuxtjs/tailwindcss": "^6.10.0",
     "@storyblok/nuxt": "^5.7.8",
     "@unlok-co/nuxt-stripe": "^2.0.0",

@@ -1,6 +1,6 @@
 <template>
   <NuxtLink
-    :to="`/products/${product.slug}`"
+    :to="`/art-gallery/${product.slug}`"
     v-editable="blok"
     class="featured-product flex items-center justify-center flex-col my-24 container mx-auto"
     v-if="product"
@@ -35,7 +35,7 @@ if(!props.blok.random){
   // get random product with a random number
   response = await storyblokApi.get("cdn/stories/", {
     version: "draft",
-    starts_with: "products",
+    starts_with: "art-gallery",
     is_startpage: false,
   });
 

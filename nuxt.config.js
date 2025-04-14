@@ -15,20 +15,30 @@ export default defineNuxtConfig({
     "@unlok-co/nuxt-stripe",
     "@pinia/nuxt",
     "nuxt-icon",
-    'nuxt-vuefire',
+    "nuxt-vuefire",
+    "@nuxtjs/seo",
   ],
+  robots: {
+    // provide simple disallow rules for all robots `user-agent: *`
+    disallow: ["/success", "/imprint", "/data-policy", "/checkout", "/basket"],
+  },
+  sitemap: {
+    sources: [
+      '/api/__sitemap__/urls',
+    ],
+  },
   app: {
-    pageTransition: { name: 'page', mode: 'out-in' }
+    pageTransition: { name: "page", mode: "out-in" },
   },
   vuefire: {
     appCheck: {
-      debug: process.env.NODE_ENV !== 'production',
+      debug: process.env.NODE_ENV !== "production",
       isTokenAutoRefreshEnabled: true,
-      provider: 'ReCaptchaEnterprise',
+      provider: "ReCaptchaEnterprise",
       key: process.env.GOOGLE_RECAPTCHA_KEY,
     },
     auth: {
-      enabled: true
+      enabled: true,
     },
     config: {
       apiKey: process.env.FIREBASE_API_KEY,
@@ -41,8 +51,8 @@ export default defineNuxtConfig({
   },
   image: {
     storyblok: {
-      baseURL: 'https://a.storyblok.com'
-    }
+      baseURL: "https://a.storyblok.com",
+    },
   },
   stripe: {
     // Server
@@ -58,7 +68,7 @@ export default defineNuxtConfig({
 
       // your api options override for stripe client side
       options: {
-        locale: 'en',
+        locale: "en",
       },
     },
   },
