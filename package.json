@@ -28,6 +28,8 @@
   "dependencies": {
     "@firebase/app-types": "^0.9.0",
     "@pinia/nuxt": "^0.5.1",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-vue": "^8.6.0",
     "firebase": "^10.7.0",
     "firebase-admin": "^11.11.1",
     "firebase-functions": "^4.5.0",

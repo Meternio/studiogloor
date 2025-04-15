@@ -3,13 +3,14 @@
     <PageTitle :blok="{ headline: blok.name, tag: 'h1' }" />
     <div class="flex flex-col md:flex-row my-24 gap-4">
       <div class="w-full md:w-1/2">
-        <NuxtImg
-          :src="blok.productImage.filename"
-          :alt="blok.productImage.alt"
-          width="745"
-          class="w-full"
-          provider="storyblok"
-          format="webp"
+        <Carousel 
+          :blok="{ 
+            images: [blok.productImage].concat(
+              blok.productCarouselImages && blok.productCarouselImages.length > 0 
+                ? blok.productCarouselImages 
+                : []
+            )
+          }" 
         />
       </div>
       <div class="w-full md:w-1/2 flex flex-col gap-4 md:mt-[7%] mt-0 items-center md:items-start">
