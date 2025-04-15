@@ -51,7 +51,6 @@
         </div>
   
         <!-- Thumbnails row -->
-        <!-- Thumbnails row -->
         <div class="flex flex-wrap justify-center gap-2 mt-4">
             <div
                 v-for="(image, index) in images"
@@ -79,7 +78,6 @@
   
   <script setup>
   import { ref, computed, watch, onMounted } from 'vue';
-  // Correct import for embla-carousel-vue v8.6.0
   import EmblaCarousel from 'embla-carousel';
   
   const props = defineProps({ 
@@ -112,7 +110,6 @@
   // Only setup carousel on client-side
   onMounted(() => {
     if (process.client && images.value.length > 1 && emblaRef.value) {
-      // In Embla 8.x, we initialize directly
       const options = { loop: true };
       
       // Use a setTimeout to ensure DOM is fully rendered
